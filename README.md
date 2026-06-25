@@ -119,5 +119,5 @@ npm run dev
 ## Development
 
 - **Backend**: Uses `tsx` for hot-reloading.
-- **Frontend**: Uses Vite for lightning-fast development.
+- **Frontend**: Uses Vite for lightning-fast development and better developer ux.
 - **Database**: Drizzle Kit is used for migrations and schema management.
