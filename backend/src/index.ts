@@ -34,7 +34,10 @@ app.post("/webhooks/polar", rawJson, (req, res) => {
 });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: [env.FRONTEND_URL, "http://localhost:5173", "http://localhost:3000"],
+    credentials: true,
+}));
 app.use(clerkMiddleware());
 app.use(sentryClerkUserMiddleware);
 
@@ -81,10 +84,13 @@ app.use(
     }
 );
 
-app.listen(env.PORT, () => {
-    console.log("Listening on port:", env.PORT);
-    if (env.NODE_ENV === "production") {
-        keepAliveCron.start();
-    }
-});
+if (process.env.VERCEL !== "1") {
+    app.listen(env.PORT, () => {
+        console.log("Listening on port:", env.PORT);
+        if (env.NODE_ENV === "production") {
+            keepAliveCron.start();
+        }
+    });
+}
 
+export default app;
